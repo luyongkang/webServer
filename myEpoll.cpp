@@ -29,7 +29,7 @@ int myEpollAdd(int epfd,int fd,epoll_event* event)
 	if(epoll_ctl(epfd,EPOLL_CTL_ADD,fd,event)<0)
 	{
 		cerr << getNowTime() << ": myEpollAdd epoll_ctl error ---" << strerror(errno) << endl;
-		exit(1);
+		return -1;
 	}
 
 	return 0;
@@ -40,7 +40,7 @@ int myEpollDel(int epfd,int fd)
 	if(epoll_ctl(epfd,EPOLL_CTL_DEL,fd,nullptr)<0)
 	{
 		cerr << getNowTime() << ": myEpollDel epoll_ctl error ---" << strerror(errno) << endl;
-		exit(1);
+		return -1;
 	}
 
 	return 0;
@@ -52,7 +52,7 @@ int myEpollMod(int epfd,int fd,epoll_event* event)
 	if(epoll_ctl(epfd,EPOLL_CTL_MOD,fd,event)<0)
 	{
 		cerr << getNowTime() << ": myEpollDel epoll_ctl error ---" << strerror(errno) << endl;
-		exit(1);
+		return -1;
 	}
 
 	return 0;
@@ -65,7 +65,7 @@ int myEpollWait(int epfd,epoll_event* evnets,int maxEvents,int timeout)
 	if(nfds<0)
 	{
 		cerr << getNowTime() << ": myEpollWait epoll_wait error ---" << strerror(errno) << endl;
-		exit(1);
+		return -1;
 	}
 
 	return nfds;

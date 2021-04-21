@@ -6,14 +6,15 @@
 #include <pthread.h>
 
 class mytimer;
-extern std::priority_queue<mytimer *, std::queue<mytimer *>, timerCmp> myTimerQueue;
+class timerCmp;
+class httpRequest;
+
+extern std::priority_queue<mytimer *, std::deque<mytimer *>, timerCmp> myTimerQueue;
 extern pthread_mutex_t myTimerLock;
 extern const int TIME_TIMER_OUT;
 
 //获取当前时间函数
 std::string getNowTime();
-
-class httpRequest;
 
 class mytimer
 {

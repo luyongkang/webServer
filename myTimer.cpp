@@ -1,4 +1,5 @@
 #include "myTimer.h"
+#include "myHttpRequest.h"
 
 #include <string>
 #include <sstream>
@@ -6,12 +7,12 @@
 #include <sys/time.h>
 #include <time.h>
 
+using std::deque;
 using std::priority_queue;
-using std::queue;
 using std::string;
 using std::stringstream;
 
-priority_queue<mytimer *, queue<mytimer *>, timerCmp> myTimerQueue;
+priority_queue<mytimer *, deque<mytimer *>, timerCmp> myTimerQueue;
 pthread_mutex_t myTimerLock = PTHREAD_MUTEX_INITIALIZER;
 const int TIME_TIMER_OUT = 500;
 
@@ -37,7 +38,7 @@ mytimer::mytimer(httpRequest *_p, int timeout) : phttpRequest(_p), deleted(false
 
 mytimer::~mytimer()
 {
-	if(phttpRequest!=nullptr)
+	if (phttpRequest != nullptr)
 	{
 		delete phttpRequest;
 		phttpRequest = nullptr;
@@ -47,24 +48,24 @@ mytimer::~mytimer()
 void mytimer::update(int timeout)
 {
 	struct timeval now;
-    gettimeofday(&now, NULL);
-    expiredTime = ((now.tv_sec * 1000) + (now.tv_usec / 1000)) + timeout;
+	gettimeofday(&now, NULL);
+	expiredTime = ((now.tv_sec * 1000) + (now.tv_usec / 1000)) + timeout;
 }
 
 bool mytimer::isvalid()
 {
 	struct timeval now;
-    gettimeofday(&now, NULL);
-    size_t temp = ((now.tv_sec * 1000) + (now.tv_usec / 1000));
-    if (temp < expiredTime)
-    {
-        return true;
-    }
-    else
-    {
-        this->setDeleted();
-        return false;
-    }
+	gettimeofday(&now, NULL);
+	size_t temp = ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+	if (temp < expiredTime)
+	{
+		return true;
+	}
+	else
+	{
+		this->setDeleted();
+		return false;
+	}
 }
 
 size_t mytimer::getExpTime() const

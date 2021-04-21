@@ -386,7 +386,7 @@ int httpRequest::parseHeader()
 		{
 		case h_start:
 		{
-			if (content[index] == '/r' || content[index] == '/n')
+			if (content[index] == '\r' || content[index] == '\n')
 			{
 				break;
 			}
@@ -432,7 +432,7 @@ int httpRequest::parseHeader()
 		}
 		case h_value:
 		{
-			if (content[index] == '/r')
+			if (content[index] == '\r')
 			{
 				h_state = h_CR;
 				valueEnd = index;
@@ -513,8 +513,8 @@ int httpRequest::analysisRequest()
 			sprintf(header, "%sKeep-Alive: timeout=%d\r\n", header, EPOLL_WAIT_TIME);
 		}
 
-		char *sendMessage = "Server receiced a post request";
-		sprintf(header, "%sContent-length: %d\r\n", header, strlen(sendMessage));
+		const char *sendMessage = "Server receiced a post request";
+		sprintf(header, "%sContent-length: %ld\r\n", header, strlen(sendMessage));
 		sprintf(header, "%s\r\n", header);
 		sprintf(header, "%s%s\r\n", header, sendMessage);
 		int sentNum = send(fd, header, strlen(header), 0);

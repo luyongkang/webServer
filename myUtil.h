@@ -17,7 +17,7 @@ void acceptConnection(int listenfd, int epollfd, const std::string &PATH);
 
 void myHandler(void *arg);
 
-int readn(int fd, char *buf, size_t maxSize);
+ssize_t readn(int fd, char *buf, size_t maxSize);
 
-int writen(int fd, char *buf, size_t maxSize);
+ssize_t writen(int fd, char *buf, size_t maxSize);
 #endif

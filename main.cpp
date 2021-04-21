@@ -25,6 +25,7 @@ const string PATH = "/";
 
 int main()
 {
+	cout << "server begins" << endl;
 	int listenfd;			  //监听socket
 	int sockfd;				  //连接socket
 	int epfd;				  //epoll描述符
@@ -33,8 +34,9 @@ int main()
 	int nfds;				  //epoll监听返回的数量
 	httpRequest *req;
 	//首先先将该进程初始化为守护进程
+	cout << "1" << endl;
 	daemonize();
-
+	cout << "2" << endl;
 	listenfd = initServer();
 	if (setSockNonBlock(listenfd) != 0)
 	{
@@ -52,6 +54,7 @@ int main()
 	event.data.ptr = req;
 
 	myEpollAdd(epfd, listenfd, &event);
+	cout << getNowTime() << endl;
 
 	while (true)
 	{

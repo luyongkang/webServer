@@ -85,7 +85,7 @@ void myHandler(void *arg)
 	request->handleRequest();
 }
 
-int readn(int fd, char *buf, size_t maxSize)
+ssize_t readn(int fd, char *buf, size_t maxSize)
 {
 	int nleft = maxSize;
 	int readn = 0;
@@ -122,7 +122,7 @@ int readn(int fd, char *buf, size_t maxSize)
 	return sum;
 }
 
-int writen(int fd,char * buf,size_t maxSize )
+ssize_t writen(int fd,char * buf,size_t maxSize )
 {
 	int nleft = maxSize;
 	int writen = 0;

@@ -14,7 +14,7 @@ const int THREADPOOL_SHUTDOWN = -4;
 const int THREADPOOL_THREAD_FAILURE = -5;
 
 const int MAX_THREADS = 1024;
-const int MAX_QUEUES = 1024;
+const int MAX_QUEUES = 65535;
 
 threadpool_t *myThreadpoolInit(int threadNum, int queueSize)
 {
@@ -26,7 +26,7 @@ threadpool_t *myThreadpoolInit(int threadNum, int queueSize)
 		exit(1);
 	}
 
-	if (queueSize <= 0 || queueSize > MAX_THREADS)
+	if (queueSize <= 0 || queueSize > MAX_QUEUES)
 	{
 		cerr << getNowTime() << ": myThreadpoolInit error ---queueSize error" << endl;
 		exit(1);

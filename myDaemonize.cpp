@@ -29,12 +29,12 @@ void daemonize()//该函数不仅初始化守护进程，还处理一些信号
 	umask(0);					   //给予创建文件全部权限;
 	getrlimit(RLIMIT_NOFILE, &rl); //获取该进程最多能打开的文件数
 
-	if ((pid = fork()) < -1)
+	if ((pid = fork()) < 0)
 	{
 		cerr << "first fork() fail ---" << strerror(errno) << endl;
 		exit(0);
 	}
-	else if (pid != -1)
+	else if (pid != 0)
 	{
 		//this is parent
 		exit(-1);
@@ -76,6 +76,7 @@ void daemonize()//该函数不仅初始化守护进程，还处理一些信号
 	{
 		rl.rlim_max = 1024;
 	}
+
 	for (int i = 0; i < rl.rlim_max; i++)
 	{
 		close(i);
@@ -116,7 +117,7 @@ int initServer()
 
 	memset(&addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(80);
+	addr.sin_port = htons(8888);
 	//inet_pton(AF_INET, "192.168.1.100", &addr.sin_addr);
 	addr.sin_addr.s_addr = htonl(INADDR_ANY);
 	if (bind(socketfd, (sockaddr *)&addr, sizeof(addr)) < 0)
@@ -125,7 +126,7 @@ int initServer()
 		exit(1);
 	}
 
-	err = listen(socketfd, 0);
+	err = listen(socketfd, 10);
 	if (err != 0)
 	{
 		cerr << getNowTime() << ": initServer listen err ---" << strerror(errno) << endl;
