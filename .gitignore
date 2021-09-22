@@ -1,0 +1,9 @@
+#vscode config file
+.vscode
+
+#debug file
+debug
+
+#objs
+*.o
+*.s
