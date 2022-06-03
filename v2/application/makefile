@@ -5,7 +5,7 @@ export tmp_dir := $(mkfile_dir)tmp/
 
 #编译器与选项
 TARGET := myserver 
-export CC := g++
+export CC := clang++
 export CFLAGS := -std=c++20 -g -Wall
 export INCLUDE_PATH := $(mkfile_dir)headers
 

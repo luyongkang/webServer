@@ -5,10 +5,11 @@
 #include <iostream>
 #include <cstring>
 
-#include "time/mytimer.h"
-
 using std::cout;
 using std::endl;
+using std::string;
+
+extern string getNowTime();
 
 int main(int argc, char *argv[])
 {
