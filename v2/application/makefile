@@ -7,7 +7,7 @@ export tmp_dir := $(mkfile_dir)tmp/
 TARGET := myserver 
 export CC := clang++
 export CFLAGS := -std=c++20 -g -Wall
-export INCLUDE_PATH := $(mkfile_dir)headers
+export INCLUDE_PATH := $(mkfile_dir)include
 
 .PHONY: all clean cleanAll
 
